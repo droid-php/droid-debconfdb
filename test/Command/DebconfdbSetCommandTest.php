@@ -30,12 +30,17 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
         ;
         $this->processBuilder = $this
             ->getMockBuilder(ProcessBuilder::class)
-            ->setMethods(array('setArguments', 'getProcess'))
+            ->setMethods(array('setArguments', 'setTimeout', 'getProcess'))
             ->getMock()
         ;
         $this
             ->processBuilder
             ->method('setArguments')
+            ->willReturnSelf()
+        ;
+        $this
+            ->processBuilder
+            ->method('setTimeout')
             ->willReturnSelf()
         ;
         $this
@@ -89,6 +94,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
         $this
             ->processBuilder
             ->expects($this->once())
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->once())
             ->method('getProcess')
         ;
         $this
@@ -119,6 +130,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
                     'vfs://root/some-file',
                 )
             )
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->once())
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
         ;
         $this
             ->processBuilder
@@ -171,6 +188,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
         $this
             ->processBuilder
             ->expects($this->exactly(2))
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->exactly(2))
             ->method('getProcess')
         ;
         $this
@@ -217,6 +240,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
         $this
             ->processBuilder
             ->expects($this->exactly(3))
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->exactly(3))
             ->method('getProcess')
         ;
         $this
@@ -251,6 +280,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
                     'vfs://root/some-file',
                 ))
             )
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->exactly(2))
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
         ;
         $this
             ->processBuilder
@@ -299,6 +334,12 @@ class DebconfdbSetCommandTest extends \PHPUnit_Framework_TestCase
                     'vfs://root/some-file',
                 ))
             )
+        ;
+        $this
+            ->processBuilder
+            ->expects($this->exactly(3))
+            ->method('setTimeout')
+            ->with($this->equalTo(0.0))
         ;
         $this
             ->processBuilder
